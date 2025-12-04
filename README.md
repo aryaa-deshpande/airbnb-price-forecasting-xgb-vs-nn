@@ -106,7 +106,7 @@ Each city's `listings.csv` file was cleaned and transformed using a consistent p
    - Converted price to numeric and dropped rows with missing price.
 
 2. **Bathroom Parsing**  
-   - Extracted the numeric part of `bathrooms_text` (e.g., `"1 bath" → 1.0"`).  
+   - Extracted the numeric part of `bathrooms_text` (e.g., `"1 bath" -> 1.0"`).  
    - Converted to float and handled missing values.
 
 3. **Handling Missing Review Scores**  
@@ -129,7 +129,7 @@ Each city's `listings.csv` file was cleaned and transformed using a consistent p
    - Only numeric features are kept for modeling.  
    - Target variable: `price`.
 
-This preprocessing pipeline ensures all cities—regardless of size, tier, or data quality - are transformed into a consistent, numeric modeling format.
+This preprocessing pipeline ensures all cities - regardless of size, tier, or data quality - are transformed into a consistent, numeric modeling format.
 
 ---
 
@@ -187,7 +187,7 @@ For each model and dataset:
 
 ### City-Level Model Performance (All 12 Cities)
 
-| City           | Tier   | Model | RMSE      | MAE       | R²       |
+| City           | Tier   | Model | RMSE      | MAE       | R^2       |
 |----------------|--------|--------|-----------|-----------|----------|
 | New York City  | Big    | XGB    | 1580.56   | 233.05    | 0.887    |
 | New York City  | Big    | NN_A   | 3285.50   | 592.59    | 0.512    |
@@ -237,11 +237,11 @@ Why?
 
 ---
 
-## 7. Results — Tier-Level Models
+## 7. Results: Tier-Level Models
 
 ### Tier-Level Model Performance
 
-| Tier   | Model | RMSE      | MAE       | R²       |
+| Tier   | Model | RMSE      | MAE       | R^2       |
 |--------|--------|-----------|-----------|----------|
 | Big    | XGB    | 1345.22   | 198.37    | 0.842    |
 | Big    | NN_A   | 2861.14   | 521.08    | 0.412    |
@@ -263,7 +263,7 @@ Why?
 |--------|-----------|-------------|
 | Big    | XGBoost   | Large, heterogeneous markets where tree-based models capture nonlinear interactions better than neural networks. |
 | Medium | XGBoost   | Medium-sized datasets with moderate variance; neural networks tend to underfit, while XGBoost handles structured tabular features more effectively. |
-| Small  | XGBoost   | Very small datasets → neural networks perform poorly due to insufficient data, while XGBoost remains stable even with limited samples. |
+| Small  | XGBoost   | Very small datasets -> neural networks perform poorly due to insufficient data, while XGBoost remains stable even with limited samples. |
 
 Neural Networks struggled especially for small cities due to limited sample size.
 
@@ -275,15 +275,15 @@ I tested how well a tier-level NN generalizes across different market sizes:
 
 Examples:
 
-	•	Big → Medium
-	•	Big → Small
-	•	Medium → Big
-	•	Small → Medium
+	•	Big -> Medium
+	•	Big -> Small
+	•	Medium -> Big
+	•	Small -> Medium
 	•	etc.
 
-### Cross-Tier Neural Network Generalization (R² Performance)
+### Cross-Tier Neural Network Generalization (R^2 Performance)
 
-| Source Tier | Tested On | RMSE      | MAE       | R²        |
+| Source Tier | Tested On | RMSE      | MAE       | R^2        |
 |-------------|-----------|-----------|-----------|-----------|
 | Big         | Medium    | 3150.22   | 498.03    | -0.412    |
 | Big         | Small     | 1625.87   | 275.44    | -0.762    |
@@ -292,7 +292,7 @@ Examples:
 | Small       | Big       | 5104.66   | 932.77    | -0.991    |
 | Small       | Medium    | 2498.12   | 392.66    | -0.552    |
 
-Across all six cross-tier evaluations, R² values were negative, meaning the neural networks performed worse than predicting the mean price. This demonstrates that price distributions differ strongly between tiers, and that models trained on one tier do not generalize to others.
+Across all six cross-tier evaluations, R^2 values were negative, meaning the neural networks performed worse than predicting the mean price. This demonstrates that price distributions differ strongly between tiers, and that models trained on one tier do not generalize to others.
 
 ### Key Findings
 	•	Cross-tier generalization is very poor.
@@ -312,30 +312,32 @@ XGBoost generalizes slightly better, but NN generalization is extremely weak.
 ## 9. Visualizations
 
 The notebook includes:
+
 	•	City-level RMSE bar chart
 	•	Tier-level RMSE bar chart
 	•	Cross-tier heatmap
 	•	Model comparisons
 
 These plots clearly show:
+
 	•	XGBoost wins almost everywhere
 	•	NN models underperform in small markets
-	•	Cross-tier R² collapses sharply
-
-⸻
-
-## 10. How to Run the Notebook
-
-### Option A — Google Colab
-
-	1.	Upload the notebook to Colab
-	2.	Upload the data/ folder (or mount Google Drive)
-	3.	Run all cells (runtime: ~3–5 minutes)
-	4.	GPU is optional — CPU is sufficient for both XGBoost and small neural networks
+	•	Cross-tier R^2 collapses sharply
 
 ---
 
-#### Option B — Local Environment
+## 10. How to Run the Notebook
+
+### Option A - Google Colab
+
+	1.	Upload the notebook to Colab
+	2.	Upload the data/ folder (or mount Google Drive)
+	3.	Run all cells 
+	4.	GPU is optional - CPU is sufficient for both XGBoost and small neural networks
+
+---
+
+#### Option B - Local Environment
 
 Install dependencies:
 ```
